@@ -1,25 +1,26 @@
-#Given a list of integers, return a list of numbers that after being squared
-#and added 10, the last digit is not 5 or 6.
-#Complete the kinderSquare method. It receives an array of integers, arr.
-#It returns a list of integers consisting of those elements of the original
-#list that after being squared and added 10, their last digit is not 5 or 6.
-#Please note that the relative order of the elements in the output array
-#must be the same order that the one in the input array
+# Given a list of integers, return a list of numbers that after being squared
+# and added 10, the last digit is not 5 or 6.
+# Complete the kinderSquare method. It receives an array of integers, arr.
+# It returns a list of integers consisting of those elements of the original
+# list that after being squared and added 10, their last digit is not 5 or 6.
+# Please note that the relative order of the elements in the output array
+# must be the same order that the one in the input array
 
 
 print("--Kinder Square--")
 numbers = []
 
-with open('exercise_1.txt','r') as f:
+with open('exercise_1.txt', 'r') as f:
     for line in f:
         numbers.append(line.split(',')[0])
 
+
 def kinderSquare():
     n = int(numbers[0])
-    for i in range(1,n+1):
+    for i in range(1, n + 1):
         value = (int(numbers[i]) ** 2) + 10
         value_string = str(value)
-        last_digit = value_string[len(value_string)-1]
+        last_digit = value_string[len(value_string) - 1]
         if last_digit != "5" and last_digit != "6":
             print(value)
 
@@ -28,15 +29,16 @@ kinderSquare()
 
 print("--Minefield--")
 
-#You have to walk through a minefield and you know the steps you can
-#take in order to not come across a mine. The field is mapped to a
-#cartesian coordinate system and each step you could take is in a straight
-#line, adding to one of the coordinates (x or y) of the standing point, the
-#value of the other coordinate. This means that from point (x, y) you can
-#go either to (x + y, y) or (x, x + y). The idea is to see if it is possible to go
-#from a starting point (x , y ) to an ending point (x , y ).
+# You have to walk through a minefield and you know the steps you can
+# take in order to not come across a mine. The field is mapped to a
+# cartesian coordinate system and each step you could take is in a straight
+# line, adding to one of the coordinates (x or y) of the standing point, the
+# value of the other coordinate. This means that from point (x, y) you can
+# go either to (x + y, y) or (x, x + y). The idea is to see if it is possible to go
+# from a starting point (x , y ) to an ending point (x , y ).
 
 input = [2, 1, 1, 2, 5, 1, 1, 6, 3]
+
 
 def isPossible(x_start, y_start, x_end, y_end):
     if x_start == x_end and y_start == y_end:
@@ -46,26 +48,24 @@ def isPossible(x_start, y_start, x_end, y_end):
     if x_start + y_start <= x_end:
         return isPossible(x_start + y_start, y_start, x_end, y_end)
     if x_start + y_start <= y_end:
-        return isPossible(x_start, x_start+y_start, x_end, y_end)
-
+        return isPossible(x_start, x_start + y_start, x_end, y_end)
 
 
 n = input[0]
 value = input[1:]
 index = 0
-for time in range(0,n):
-    slice = value[index:index+4]
+for time in range(0, n):
+    slice = value[index:index + 4]
     response = isPossible(slice[0], slice[1], slice[2], slice[3])
     if response:
         print('YES')
     else:
         print('NO')
-    index+=3
+    index += 3
 
 print("--Multiple Choice Panic--")
 
-
-with open('exercise_3.txt','r') as f:
+with open('exercise_3.txt', 'r') as f:
     line_index = 0
     t = 0
     exams = []
@@ -74,36 +74,38 @@ with open('exercise_3.txt','r') as f:
         if line_index == 0:
             t = line.rstrip()
         elif line_index == 1:
-            n = line.rstrip() #cantidad de preguntas
+            n = line.rstrip()  # cantidad de preguntas
             exam[0] = n
         elif line_index == 2:
-            p = line.rstrip() #puntos necesarios para pasar el examen
+            p = line.rstrip()  # puntos necesarios para pasar el examen
             exam[1] = p
         elif line_index == 3:
-            q = line.rstrip().split(' ') #numero de opciones por pregunta
+            q = line.rstrip().split(' ')  # numero de opciones por pregunta
             exam[2] = q
         elif line_index == 4:
-            pc = line.rstrip().split(' ') #punto obtenidos por respuesta
+            pc = line.rstrip().split(' ')  # punto obtenidos por respuesta
             exam[3] = pc
         else:
-            pw = line.rstrip().split(' ') #punto perdidos por respuesta
+            pw = line.rstrip().split(' ')  # punto perdidos por respuesta
             exam[4] = pw
             exams.append(exam)
             line_index = 0
             exam = [0, 0, 0, 0, 0]
         line_index += 1
 
+
 def weightedAverage(cant, cantip, cantin):
-    return ((1/float(cant))*cantip)  -  (((float(cant)-1)/float(cant)) * cantin)
+    return ((1 / float(cant)) * cantip) - (((float(cant) - 1) / float(cant)) * cantin)
+
 
 def isExpectedToPassExam(n, p, q, pc, pw):
-#- N: Number of questions
-#- P: Score Bob needs to pass
-#- q: An array of N integers, q being the number of options for question i
-#- pc: An array of N numbers, pc being the points gained for answering question i correctly
-#- pw: An array of N numbers, pw being the points lost for answering question i wrongly It returns the string
-#YES if the expected score of answering all questions randomly is P or higher,
-#otherwise it returns NO.
+    # - N: Number of questions
+    # - P: Score Bob needs to pass
+    # - q: An array of N integers, q being the number of options for question i
+    # - pc: An array of N numbers, pc being the points gained for answering question i correctly
+    # - pw: An array of N numbers, pw being the points lost for answering question i wrongly It returns the string
+    # YES if the expected score of answering all questions randomly is P or higher,
+    # otherwise it returns NO.
     score = 0
 
     for answer_index in range(0, int(n)):
@@ -113,9 +115,9 @@ def isExpectedToPassExam(n, p, q, pc, pw):
         return 'YES'
     return 'NO'
 
+
 for exam in exams:
     print(isExpectedToPassExam(exam[0], exam[1], exam[2], exam[3], exam[4]))
-
 
 print("--OpenMateLab--")
 
@@ -144,25 +146,28 @@ print("--OpenMateLab--")
 # The first line will contain an integer denoting Fibi
 # The second line will contain an integer denoting JRj
 
-input = [] # [Fib0, Fib1, i, JR0, JR1, JR2, j]  i => Fibi, j => JRj
+input = []  # [Fib0, Fib1, i, JR0, JR1, JR2, j]  i => Fibi, j => JRj
 
-with open('exercise_4.txt','r') as f:
+with open('exercise_4.txt', 'r') as f:
     for line in f:
         input.append(int(line))
+
 
 def fibonacci(Fib0, Fib1, i):
     fib_i_minus_2 = Fib0
     fib_i_minus_1 = Fib1
     fib_i = 0
-    for i in range(2,i+1):
+    for i in range(2, i + 1):
         fib_i = fib_i_minus_1 + fib_i_minus_2
         fib_i_minus_2 = fib_i_minus_1
         fib_i_minus_1 = fib_i
 
     return fib_i
 
+
 result = fibonacci(input[0], input[1], input[2])
 print(result)
+
 
 def jaime_roos(jr0, jr1, jr2, j):
     jr_j_minus_3 = jr0
@@ -177,5 +182,71 @@ def jaime_roos(jr0, jr1, jr2, j):
 
     return jr_j
 
+
 result = jaime_roos(input[3], input[4], input[5], input[6])
+
 print(result)
+
+print("--Dishwashers Paradise--")
+
+class KitchenPorter:
+
+    def __init__(self, size_stack):
+        self.stacks_dish = []
+        self.size_stack = size_stack
+        self.instructions = {"ADD": self.add, "REMOVE": self.remove, "COUNT": self.count}
+
+    def add(self, id_dish):
+        if len(self.stacks_dish) > 0 and len(self.stacks_dish[-1]) < self.size_stack:
+            self.stacks_dish[-1] = [id_dish] + self.stacks_dish[-1]
+        else:
+            self.stacks_dish.append([id_dish])
+
+    def remove(self, _param):
+        if len(self.stacks_dish) != 0:
+            print(self.stacks_dish[0].pop(0))
+            self.order_dishes()
+
+    def count(self, id_stack):
+        if id_stack + 1 > len(self.stacks_dish):
+            print(-1)
+        else:
+            print(len(self.stacks_dish[id_stack]))
+
+    def order_dishes(self):
+        if not len(self.stacks_dish) or not len(self.stacks_dish[1]):
+            return
+
+        to_remove = []
+        for i in range(1, len(self.stacks_dish)):
+            self.stacks_dish[i-1] = [self.stacks_dish[i].pop(0)] + self.stacks_dish[i-1]
+            if not len(self.stacks_dish[i]):
+                to_remove.append(i)
+
+        for index in to_remove:
+            self.stacks_dish.pop(index)
+
+    def read_instruction(self, instruction, param):
+        self.instructions[instruction](param)
+
+
+input = []
+
+with open('exercise_5.txt', 'r') as f:
+    for line in f:
+        input.append(line.strip().split(" "))
+
+n = int(input[0][0]) # stack size
+q = int(input[1][0]) # queries amount
+
+instructions = input[2:]
+
+kitchen_porter = KitchenPorter(n)
+
+for instruction in instructions:
+    instruction_word = instruction[0]
+    param = 0
+    if len(instruction) > 1:
+        param = int(instruction[1])
+    kitchen_porter.read_instruction(instruction_word, param)
+
