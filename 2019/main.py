@@ -266,7 +266,26 @@ print(input)
 import functools
 
 
+# Decide which two animals to move on the truck. Complete
+# the getAnimals method. It receives an array of animal
+# weights and the truck capacity and should return an array
+# with two elements, containing the two weights of the animals
+# that are going to be moved. In case no animals can be moved
+# with the given capacity, return an empty array. We want to do
+# this as quickly as possible, because the zoo doesn’t want to waste the truck driver time.
+
+# Input
+# The first line contains an integer n, denoting the quantity of animals in the array.
+# The second line contains n integers, separated by whitespace, denoting the animal weights array.
+# The third line contains an integer denoting the truck capacity.
+
+# Output Format
+# The first line of the output contains the length of the solution array, s.
+# The second line contains s integers, separated by whitespace, denoting the solution array.
+
+
 def getAnimals(array, capacity_truck):
+
     sol = []
     legth = len(array)
     if legth < 2:
@@ -314,3 +333,38 @@ print(input)
 
 sol = getAnimals(input[1], int(input[2][0]))
 print("Sol is: %s" % sol)
+
+print("--Hermione--")
+
+# input
+# The first line contains an integer t, the number of test cases.
+# ForMtheednaellixat tArcgaesenst:ina Internship Challenge 2019 | Programming problems and challenges | HackerRank
+# The first line contains an integer n, the size of bookIDList.
+# The second line contains n separated integers, denoting the elements of the array bookIDList.
+# The third line contains an integer k, the book ID Hermione is looking for.
+
+# Output Format
+# The output will contain t lines. The ith line will contain the position of book k
+# in test i and another integer separated with a whitespace, which is for internal use.
+
+
+def findBookPosition(ids_book, id):
+    if int(ids_book[id-1]) == id:
+        return id-1, id
+    elif id != 0 and int(ids_book[id-2]) == id:
+        return id - 2, id
+    else:
+        return id   , id
+
+
+input = []
+
+with open('exercise_7.txt', 'r') as f:
+    for line in f:
+        input.append(line.strip().split(" "))
+
+print(input)
+
+sol = findBookPosition(input[1], int(input[2][0]))
+
+print(sol)
