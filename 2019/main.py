@@ -189,6 +189,7 @@ print(result)
 
 print("--Dishwashers Paradise--")
 
+
 class KitchenPorter:
 
     def __init__(self, size_stack):
@@ -219,7 +220,7 @@ class KitchenPorter:
 
         to_remove = []
         for i in range(1, len(self.stacks_dish)):
-            self.stacks_dish[i-1] = [self.stacks_dish[i].pop(0)] + self.stacks_dish[i-1]
+            self.stacks_dish[i - 1] = [self.stacks_dish[i].pop(0)] + self.stacks_dish[i - 1]
             if not len(self.stacks_dish[i]):
                 to_remove.append(i)
 
@@ -236,8 +237,8 @@ with open('exercise_5.txt', 'r') as f:
     for line in f:
         input.append(line.strip().split(" "))
 
-n = int(input[0][0]) # stack size
-q = int(input[1][0]) # queries amount
+n = int(input[0][0])  # stack size
+q = int(input[1][0])  # queries amount
 
 instructions = input[2:]
 
@@ -250,3 +251,66 @@ for instruction in instructions:
         param = int(instruction[1])
     kitchen_porter.read_instruction(instruction_word, param)
 
+
+
+print("--Freeing the Zoo--")
+
+input = []
+
+with open('exercise_6_1.txt', 'r') as f:
+    for line in f:
+        input.append(line.strip().split(" "))
+
+print(input)
+
+import functools
+
+
+def getAnimals(array, capacity_truck):
+    sol = []
+    legth = len(array)
+    if legth < 2:
+        return sol
+    sol = [0] * 2
+    for i in range(0,legth):
+        for j in range(0,legth):
+            if i != j:
+                new_weights = [int(array[i]), int(array[j])]
+                sol = getHeaviest(new_weights, sol, capacity_truck)
+    if sol == [0]*2:
+        sol = []
+
+    return sol
+
+
+def getHeaviest(new_weights, weights, capacity):
+    weight_new = functools.reduce(lambda x, y: x+y, new_weights)
+    weight_old = functools.reduce(lambda x, y: x+y, weights)
+    if weight_new > capacity:
+        return weights
+    if weight_new < weight_old:
+        return weights
+    elif weight_new > weight_old:
+        return new_weights
+    else:
+        max_new = functools.reduce(lambda x,y: max(x,y), new_weights)
+        max_old = functools.reduce(lambda x, y: max(x, y), weights)
+        if max_new > max_old:
+            return new_weights
+        else:
+            return weights
+
+
+sol = getAnimals(input[1], int(input[2][0]))
+print("Sol is: %s" % sol)
+
+input = []
+
+with open('exercise_6_2.txt', 'r') as f:
+    for line in f:
+        input.append(line.strip().split(" "))
+
+print(input)
+
+sol = getAnimals(input[1], int(input[2][0]))
+print("Sol is: %s" % sol)
