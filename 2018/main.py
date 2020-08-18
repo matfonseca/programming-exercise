@@ -38,3 +38,36 @@ def encodeMessage(message):
 
 
 encodeMessage(message)
+
+
+print("--The Context Switching Problem--")
+
+import functools
+
+def numberOfChunks(start_meetings, end_meetings):
+    max = functools.reduce(lambda x, y: x if x > y else y, end_meetings)
+    min = functools.reduce(lambda x, y: x if x < y else y, start_meetings)
+    time = [min, max]
+    times = [time]
+    size = len(start_meetings)
+
+    for i in range(0, size):
+        meeting_i = [start_meetings[i], end_meetings[i]]
+        new_times = []
+        for time in times:
+            if meeting_i[0] < time[1] and meeting_i[1] < time[1]:
+                new_times.append([time[0],meeting_i[0]])
+                new_times.append([meeting_i[1], time[1]])
+            elif time[0] < meeting_i[1] and meeting_i[0] <= time[0] and meeting_i[1] < time[1]:
+                new_times.append([time[1],meeting_i[1]])
+            elif time[0] < meeting_i[0] and meeting_i[0] < time[1] and meeting_i[1] >= time[1]:
+                new_times.append([time[0], meeting_i[0]])
+            else:
+                pass
+        times = new_times
+
+    return len(new_times)
+
+print(numberOfChunks([1,6,2], [3, 7, 9]))
+
+print(numberOfChunks([1, 6], [3, 7]))
