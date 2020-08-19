@@ -71,3 +71,56 @@ def numberOfChunks(start_meetings, end_meetings):
 print(numberOfChunks([1,6,2], [3, 7, 9]))
 
 print(numberOfChunks([1, 6], [3, 7]))
+
+
+
+print("--LRI Cache--")
+
+# LRI: Least Recently Inserted
+
+def contains(value, cache):
+    return value in cache
+
+def insert(value, cache, lri, k):
+    if len(cache) == 0:
+        cache.append(value)
+        return lri
+
+    if contains(value, cache):
+        if lri + 1 < len(cache):
+            return lri + 1
+        else:
+            return 0
+    else:
+        if len(cache) < k:
+            cache.append(value)
+            return lri
+        else:
+            cache[lri] = value
+            if lri + 1 < len(cache):
+                return lri + 1
+            else:
+                return 0
+def cache(file):
+    cache = []
+    lri = 0
+    k = 0
+    with open(file, 'r') as f:
+        index_line = 0
+        for line in f:
+            line_parsed = line.strip().split(" ")
+            if index_line == 0:
+                k = int(line_parsed[1])
+                index_line += 1
+            else:
+                value = line_parsed[1]
+                if(line_parsed[0] == "+"):
+                    lri = insert(value, cache, lri, k)
+                else:
+                    print(contains(value, cache))
+
+
+print("example 1")
+cache('exercise_5.txt')
+print("example 2")
+cache('exercise_5_b.txt')
